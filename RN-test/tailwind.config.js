@@ -1,14 +1,14 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  // Tell Tailwind where your components/screens live
+  // Tell Tailwind which files contain className usage
   content: [
     "./App.js",
     "./screens/**/*.{js,jsx,ts,tsx}",
   ],
 
-  // NativeWind default preset
+  // Use NativeWind preset for React Native
   presets: [require("nativewind/preset")],
-  
+
   theme: {
     extend: {},
   },
