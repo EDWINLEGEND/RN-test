@@ -4,11 +4,10 @@ module.exports = function (api) {
     api.cache(true);
   
     return {
-      // Use Expo's default Babel preset
-      presets: ['babel-preset-expo'],
-  
-      // Enable NativeWind so className works in React Native components
-      plugins: ['nativewind/babel'],
+      // Use Expo's default Babel preset plus NativeWind preset
+      // NativeWind's babel entry returns an internal preset (it nests plugins),
+      // so include it under "presets" instead of "plugins".
+      presets: ['babel-preset-expo', 'nativewind/babel'],
     };
   };
   

@@ -1,74 +1,50 @@
+// Import React for components and hooks.
 import * as React from 'react';
-import { SafeAreaView, View } from 'react-native';
-import { Provider as PaperProvider, Button, Text } from 'react-native-paper';
+
+// React Navigation: container + bottom tabs.
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+// React Native Paper provider (keeps Paper components themed).
+import { Provider as PaperProvider } from 'react-native-paper';
 
 // Screens
 import PaperScreen from './screens/PaperScreen';
 import CoreScreen from './screens/CoreScreen';
 import NativeWindScreen from './screens/NativeWindScreen';
 
+// Create a bottom tab navigator instance.
+const Tab = createBottomTabNavigator();
+
 export default function App() {
-  // Which screen is active: 'paper', 'core', or 'nativewind'
-  const [activeScreen, setActiveScreen] = React.useState('nativewind');
-
-  // Decide which screen to render
-  const renderScreen = () => {
-    if (activeScreen === 'paper') return <PaperScreen />;
-    if (activeScreen === 'core') return <CoreScreen />;
-    return <NativeWindScreen />; // default
-  };
-
   return (
+    // PaperProvider wraps the app so Paper components have theme/context.
     <PaperProvider>
-      <SafeAreaView style={{ flex: 1 }}>
-        {/* Top navigation buttons */}
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-around',
-            paddingVertical: 10,
-            borderBottomWidth: 1,
-            borderColor: '#ddd',
+      {/* NavigationContainer manages navigation state for the whole app. */}
+      <NavigationContainer>
+        <Tab.Navigator
+          screenOptions={{
+            headerTitleAlign: 'center',
+            tabBarActiveTintColor: '#6750A4', // Paper default primary
           }}
         >
-          <Button
-            mode={activeScreen === 'paper' ? 'contained' : 'outlined'}
-            onPress={() => setActiveScreen('paper')}
-          >
-            Paper UI
-          </Button>
-
-          <Button
-            mode={activeScreen === 'core' ? 'contained' : 'outlined'}
-            onPress={() => setActiveScreen('core')}
-          >
-            Core RN
-          </Button>
-
-          <Button
-            mode={activeScreen === 'nativewind' ? 'contained' : 'outlined'}
-            onPress={() => setActiveScreen('nativewind')}
-          >
-            NativeWind
-          </Button>
-        </View>
-
-        {/* Title */}
-        <View style={{ padding: 10 }}>
-          <Text variant="titleMedium">
-            {activeScreen === 'paper'
-              ? 'React Native Paper Screen'
-              : activeScreen === 'core'
-              ? 'Core React Native Screen'
-              : 'NativeWind Screen'}
-          </Text>
-        </View>
-
-        {/* Main content */}
-        <View style={{ flex: 1 }}>
-          {renderScreen()}
-        </View>
-      </SafeAreaView>
+          <Tab.Screen
+            name="Paper"
+            component={PaperScreen}
+            options={{ title: 'Paper UI' }}
+          />
+          <Tab.Screen
+            name="Core"
+            component={CoreScreen}
+            options={{ title: 'Core RN' }}
+          />
+          <Tab.Screen
+            name="NativeWind"
+            component={NativeWindScreen}
+            options={{ title: 'NativeWind' }}
+          />
+        </Tab.Navigator>
+      </NavigationContainer>
     </PaperProvider>
   );
 }
