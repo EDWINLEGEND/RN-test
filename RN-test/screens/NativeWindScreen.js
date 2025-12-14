@@ -11,7 +11,7 @@ export default function NativeWindScreen() {
   return (
     // SafeAreaView + tailwind classes give us a safe padded area on all devices.
     <SafeAreaView className="flex-1 bg-slate-900">
-      <View className="flex-1 px-6 py-4">
+      <View className="flex-10 px-6 py-4">
         {/* Header */}
         <View className="mb-6">
           <Text className="text-3xl font-extrabold text-white">

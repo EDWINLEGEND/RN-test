@@ -1,20 +1,26 @@
-// Import React for components and hooks.
 import * as React from 'react';
-
-// React Navigation: container + bottom tabs.
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
-// React Native Paper provider (keeps Paper components themed).
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Provider as PaperProvider } from 'react-native-paper';
 
-// Screens
 import PaperScreen from './screens/PaperScreen';
 import CoreScreen from './screens/CoreScreen';
 import NativeWindScreen from './screens/NativeWindScreen';
+import DetailsScreen from './screens/DetailsScreen'; // new
 
 // Create a bottom tab navigator instance.
 const Tab = createBottomTabNavigator();
+const PaperStack= createNativeStackNavigator(); 
+
+function PaperStackNavigator(){
+  return (
+    <PaperStack.Navigator>
+      <PaperStack.Screen name="Paper" component={PaperScreen} />
+      <PaperStack.Screen name="Details" component={DetailsScreen} />
+    </PaperStack.Navigator>
+  );
+}
 
 export default function App() {
   return (
@@ -29,10 +35,10 @@ export default function App() {
           }}
         >
           <Tab.Screen
-            name="Paper"
-            component={PaperScreen}
-            options={{ title: 'Paper UI' }}
-          />
+  name="Paper"
+  component={PaperStackNavigator}
+  options={{ title: 'Paper UI' }}
+/>
           <Tab.Screen
             name="Core"
             component={CoreScreen}

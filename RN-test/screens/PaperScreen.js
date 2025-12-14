@@ -4,7 +4,7 @@ import * as React from 'react';
 
 // SafeAreaView makes sure UI doesn't get hidden behind notches/status bars.
 import { SafeAreaView } from 'react-native';
-
+import { useNavigation } from '@react-navigation/native';
 // Import UI components from React Native Paper.
 // These are NOT the default RN components.
 import {
@@ -18,7 +18,7 @@ export default function PaperScreen() {
   // useState: this creates "name" and a function "setName" to update it.
   // Default value is an empty string.
   const [name, setName] = React.useState('');
-
+  const navigation = useNavigation();
   return (
     // SafeAreaView wraps UI safely inside visible screen space.
     <SafeAreaView style={{ flex: 1, justifyContent: 'center', padding: 20 }}>
@@ -39,12 +39,21 @@ export default function PaperScreen() {
             style={{ marginBottom: 12 }}
           />
 
-          {/* Button: logs the value typed in the TextInput */}
-          <Button 
+                    {/* Button: logs the value typed in the TextInput */}
+                    <Button 
             mode="contained" 
             onPress={() => console.log('Hello ' + name)}
           >
             Log Name
+          </Button>
+
+          {/* Button: navigates to Details screen and passes the name */}
+          <Button
+            mode="outlined"
+            style={{ marginTop: 12 }}
+            onPress={() => navigation.navigate('Details', { name })}
+          >
+            Go to Details
           </Button>
         </Card.Content>
       </Card>
